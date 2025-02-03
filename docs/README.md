@@ -35,6 +35,6 @@ Changes are described in [CHANGELOG][changelog].
 
 
 [pygame-ce]: https://pyga.me/docs
-[license]: docs\LICENSE
-[changelog]: docs\CHANGELOG.md
+[license]: LICENSE
+[changelog]: CHANGELOG.md
 [pygame_sock]: https://github.com/GuySky/pygame-with-sockets
