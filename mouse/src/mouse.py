@@ -15,7 +15,7 @@ pygame.display.set_icon(icon)
 pygame.display.set_caption('mouse template')
 
 
-CURSOR_SIZE = (21, 21)
+CURSOR_SIZE = (49, 49)
 cursors = [
     pygame.cursors.Cursor(
         (CURSOR_SIZE[0] // 2 + 1, CURSOR_SIZE[1] // 2 + 1),
@@ -30,7 +30,7 @@ pygame.mouse.set_cursor(cursors[CURSOR_INDEX])
 clock = pygame.time.Clock()
 running = True
 
-MOUSE_BUTTON_DOWN = False
+MOUSE_BUTTONS = [False, False, False]
 CURSOR_ANIMATION_DELAY = 5
 
 MOUSE_POS = (0, 0)
@@ -45,15 +45,21 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            MOUSE_BUTTON_DOWN = True
+            PRESSED_MOUSE_BUTTONS = list(pygame.mouse.get_just_pressed())
+            if PRESSED_MOUSE_BUTTONS[0]: MOUSE_BUTTONS[0] = True
+            if PRESSED_MOUSE_BUTTONS[1]: MOUSE_BUTTONS[1] = True
+            if PRESSED_MOUSE_BUTTONS[2]: MOUSE_BUTTONS[2] = True
         if event.type == pygame.MOUSEBUTTONUP:
-            MOUSE_BUTTON_DOWN = False
+            DEPRESSED_MOUSE_BUTTONS = list(pygame.mouse.get_just_released())
+            if DEPRESSED_MOUSE_BUTTONS[0]: MOUSE_BUTTONS[0] = False
+            if DEPRESSED_MOUSE_BUTTONS[1]: MOUSE_BUTTONS[1] = False
+            if DEPRESSED_MOUSE_BUTTONS[2]: MOUSE_BUTTONS[2] = False
             CURSOR_INDEX = 0
             pygame.mouse.set_cursor(cursors[CURSOR_INDEX])
         if event.type == pygame.MOUSEMOTION:
             MOUSE_POS = pygame.mouse.get_pos()
 
-    if MOUSE_BUTTON_DOWN:
+    if MOUSE_BUTTONS[0]:
         CURSOR_INDEX = CURSOR_INDEX + 1
         pygame.mouse.set_cursor(cursors[(CURSOR_INDEX//CURSOR_ANIMATION_DELAY)%len(cursors)])
 
